@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
+
 const Login = ({ setUser }) => {
   const [formValues, setFormValues] = useState({
     username: '',
@@ -22,7 +24,7 @@ const Login = ({ setUser }) => {
     setError(null);
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/users/login', {
+      const response = await fetch(`${BASE_URL}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues),

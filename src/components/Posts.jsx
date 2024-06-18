@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
+
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -10,7 +12,7 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('http://localhost:8080/posts');
+        const res = await fetch(`${BASE_URL}/posts`);
         const data = await res.json();
 
         setPosts(data);
@@ -30,7 +32,7 @@ const Posts = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:8080/posts', {
+      const response = await fetch(`${BASE_URL}/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
