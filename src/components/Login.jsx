@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import Button from './Button';
 
-const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
-
-const Login = ({ setUser }) => {
+const Login = () => {
   const [formValues, setFormValues] = useState({
     username: '',
     password: '',
@@ -11,6 +11,8 @@ const Login = ({ setUser }) => {
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { BASE_URL, setUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -48,8 +50,22 @@ const Login = ({ setUser }) => {
       <input type='text' name='username' id='username' value={formValues.username} onChange={handleInput} />
       <br />
       <label htmlFor='password'>Password</label>
-      <input type='password' name='password' id='password' value={formValues.password} onChange={handleInput} /> <br />
-      <button disabled={loading}>Login</button>
+      <input
+        className='border-blue'
+        type='password'
+        name='password'
+        id='password'
+        value={formValues.password}
+        onChange={handleInput}
+      />{' '}
+      <br />
+      <Button
+        className={`bg-amber-700 ${loading && 'saturate-50'}`}
+        onClick={() => alert('Button clicked!')}
+        disabled={loading}
+      >
+        Login
+      </Button>
       {error && <p>{error}</p>}
     </form>
   );

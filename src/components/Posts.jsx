@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
-const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
+// const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -8,6 +9,9 @@ const Posts = () => {
   const [error, setError] = useState(null);
 
   const [formValues, setFormValues] = useState({ title: '', body: '' });
+
+  const { BASE_URL } = useContext(AuthContext);
+  // console.log(BASE_URL);
 
   useEffect(() => {
     const fetchPosts = async () => {

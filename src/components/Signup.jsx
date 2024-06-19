@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
-const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
+// const BASE_URL = 'https://jwt-backend-8pow.onrender.com';
 
-const Signup = ({ setUser }) => {
+const Signup = () => {
   const [formValues, setFormValues] = useState({
     username: '',
     password: '',
   });
 
   const navigate = useNavigate();
+
+  const { BASE_URL, setUser } = useContext(AuthContext);
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

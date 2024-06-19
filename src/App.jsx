@@ -1,45 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import Login from './components/Login';
-import './App.css';
-import { Link, Route, Routes, Navigate } from 'react-router-dom';
+// import './App.css';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Signup from './components/Signup';
 import Posts from './components/Posts';
+import { AuthContext } from './context/AuthContext';
+import Header from './components/Header';
+import { ThemeContext } from './context/ThemeContext';
 
 function App() {
-  const [user, setUser] = useState(false);
-
-  const handleLogout = () => {
-    setUser(false);
-    localStorage.removeItem('token');
-  };
-
-  useEffect(() => {
-    const isToken = localStorage.getItem('token');
-    if (isToken) setUser(true);
-  }, []);
+  const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <>
-      <nav>
-        {!user ? (
-          <>
-            <Link to='/login'>Login</Link>
-            {'  |  '}
-            <Link to='/signup'>Signup</Link>
-          </>
-        ) : (
-          <button onClick={handleLogout}>Logout</button>
-        )}
-        {'  |  '}
-        <Link to='/posts'>Posts</Link>
-      </nav>
+    <div
+      data-theme={theme}
+      className='min-h-screen grid place-content-center bg-turtle-green-100 text-cocoa-bean-900 dark:bg-turtle-green-950 dark:text-cocoa-bean-100'
+    >
+      <Header />
       <Routes>
-        <Route path='/' element={<Login setUser={setUser} />} />
-        <Route path='/login' element={<Login setUser={setUser} />} />
-        <Route path='/signup' element={<Signup setUser={setUser} />} />
+        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
         <Route path='/posts' element={user ? <Posts /> : <Navigate to='/login' />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
